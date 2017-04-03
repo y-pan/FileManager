@@ -35,8 +35,22 @@ namespace FileManager
             lbInfo.Text = Lib.GetName(files[0]);
             label4.Text = files[0];
             
-            pbFile.ImageLocation = files[0];
-            pbFile.Refresh();
+            if (Lib.getFormat(files[0]) == "img")
+            {
+                lbSomeFile.Visible = false;
+
+                pbFile.ImageLocation = files[0];
+                pbFile.Refresh();
+                pbFile.Visible = true;
+            }
+            else 
+            { 
+                pbFile.Visible = false;
+                lbSomeFile.Text = files[0];
+                lbSomeFile.Visible = true;
+            }
+            lbxCheckins.Items.Add(files[0]);
+            
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -47,6 +61,24 @@ namespace FileManager
         private void btnOpen_Click(object sender, EventArgs e)
         {
             Process.Start(".");
+        }
+
+        private void btnRemoveSelected_Click(object sender, EventArgs e)
+        {
+            if (lbxCheckins.SelectedIndex >= 0)
+            {
+                lbxCheckins.Items.RemoveAt(lbxCheckins.SelectedIndex);
+            }
+        }
+
+        private void btnRemoveAll_Click(object sender, EventArgs e)
+        {
+            if (lbxCheckins.Items.Count > 0)
+            {
+                lbxCheckins.Items.Clear();
+                if (pbFile.Visible) { pbFile.ImageLocation = ""; pbFile.Visible = false; }
+                lbSomeFile.Text = "N/A"; lbSomeFile.Visible = true;
+            }
         }
 
 

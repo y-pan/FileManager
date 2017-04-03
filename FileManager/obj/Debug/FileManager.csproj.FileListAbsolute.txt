@@ -7,3 +7,12 @@ s:\Documents\C#2017\FileFinder\FileManager\FileManager\obj\Debug\FileManager.Pro
 s:\Documents\C#2017\FileFinder\FileManager\FileManager\obj\Debug\FileManager.csproj.GenerateResource.Cache
 s:\Documents\C#2017\FileFinder\FileManager\FileManager\obj\Debug\FileManager.exe
 s:\Documents\C#2017\FileFinder\FileManager\FileManager\obj\Debug\FileManager.pdb
+s:\Documents\C#2017\FileManager\FileManager\bin\Debug\FileManager.exe.config
+s:\Documents\C#2017\FileManager\FileManager\obj\Debug\FileManager.exe
+s:\Documents\C#2017\FileManager\FileManager\obj\Debug\FileManager.pdb
+s:\Documents\C#2017\FileManager\FileManager\bin\Debug\FileManager.exe
+s:\Documents\C#2017\FileManager\FileManager\bin\Debug\FileManager.pdb
+s:\Documents\C#2017\FileManager\FileManager\obj\Debug\FileManager.csprojResolveAssemblyReference.cache
+s:\Documents\C#2017\FileManager\FileManager\obj\Debug\FileManager.Form1.resources
+s:\Documents\C#2017\FileManager\FileManager\obj\Debug\FileManager.Properties.Resources.resources
+s:\Documents\C#2017\FileManager\FileManager\obj\Debug\FileManager.csproj.GenerateResource.Cache
