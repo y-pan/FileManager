@@ -12,13 +12,23 @@ using System.Windows.Forms;
 
 namespace FileManager
 {
+    
     public partial class Form1 : Form
     {
+        private ItemManager IM;
         public Form1()
         {
             InitializeComponent();
             this.DragEnter += new DragEventHandler(Form1_DragEnter);
             this.DragDrop += new DragEventHandler(Form1_DragDrop);
+
+            init();
+        }
+        
+        public void init()
+        {
+            IM = new ItemManager();
+
         }
 
         void Form1_DragEnter(object sender, DragEventArgs e)
@@ -30,32 +40,38 @@ namespace FileManager
 
         void Form1_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop,false);
-            //foreach (string file in files) Console.WriteLine(file);
-            lbInfo.Text = Lib.GetName(files[0]);
-            label4.Text = files[0];
-            
-            if (Lib.getFormat(files[0]) == "img")
+            try
             {
-                lbSomeFile.Visible = false;
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
-                pbFile.ImageLocation = files[0];
-                pbFile.Refresh();
-                pbFile.Visible = true;
+                IM.add(files[0]); // will throw duplicates exception
+
+                if (Lib.getFormat(files[0]) == "img")
+                {
+                    lbSomeFile.Visible = false;
+
+                    pbFile.ImageLocation = files[0];
+                    pbFile.Refresh();
+                    pbFile.Visible = true;
+                }
+                else
+                {
+                    pbFile.Visible = false;
+                    lbSomeFile.Text = Lib.GetName(files[0]);
+                    lbSomeFile.Visible = true;
+                }
+                lbxCheckins.Items.Add(files[0]);
             }
-            else 
-            { 
-                pbFile.Visible = false;
-                lbSomeFile.Text = files[0];
-                lbSomeFile.Visible = true;
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
-            lbxCheckins.Items.Add(files[0]);
-            
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            File.Copy(pbFile.ImageLocation, lbInfo.Text, true);
+            IM.Save();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -68,7 +84,14 @@ namespace FileManager
             if (lbxCheckins.SelectedIndex >= 0)
             {
                 lbxCheckins.Items.RemoveAt(lbxCheckins.SelectedIndex);
+                IM.remove(lbxCheckins.SelectedItem.ToString());
+                if (lbxCheckins.Items.Count <= 0)
+                {
+                    pbFile.ImageLocation = ""; pbFile.Visible = false;
+                    lbSomeFile.Visible = false;
+                }
             }
+
         }
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
@@ -76,9 +99,11 @@ namespace FileManager
             if (lbxCheckins.Items.Count > 0)
             {
                 lbxCheckins.Items.Clear();
+                IM.Clear();
                 if (pbFile.Visible) { pbFile.ImageLocation = ""; pbFile.Visible = false; }
-                lbSomeFile.Text = "N/A"; lbSomeFile.Visible = true;
+                lbSomeFile.Visible = false;
             }
+            init();
         }
 
 

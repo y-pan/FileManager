@@ -184,7 +184,7 @@
             // lbSomeFile
             // 
             this.lbSomeFile.AutoSize = true;
-            this.lbSomeFile.Location = new System.Drawing.Point(111, 204);
+            this.lbSomeFile.Location = new System.Drawing.Point(6, 174);
             this.lbSomeFile.Name = "lbSomeFile";
             this.lbSomeFile.Size = new System.Drawing.Size(119, 20);
             this.lbSomeFile.TabIndex = 13;
