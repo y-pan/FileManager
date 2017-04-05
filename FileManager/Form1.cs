@@ -12,9 +12,11 @@ using System.Windows.Forms;
 
 namespace FileManager
 {
+    enum SIGNALS { SAVE,UPDATE,DELETE }
     
     public partial class Form1 : Form
     {
+        SIGNALS signal;
         private ItemManager IM;
         public Form1()
         {
@@ -71,7 +73,30 @@ namespace FileManager
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            IM.Save();
+            
+            if (lbxCheckins.Items.Count <= 0) return;
+
+            try{
+                if (txtKeys.Text.Length <= 0) throw new Exception("Keywords should not be empty");
+                string keywords = txtKeys.Text.Trim();
+                while (keywords.Contains("  ")) { keywords.Replace("  ", " "); }
+                if (keywords.Length <= 0) throw new Exception("Invalid keywords");
+                IM.Save(keywords);
+                lbxCheckins.Items.Clear();
+                txtKeys.Text = "";
+
+                pbFile.ImageLocation = ""; pbFile.Visible = false;
+                lbSomeFile.Visible = false;
+
+                signal = SIGNALS.SAVE;
+                lbSaved.Visible = true;
+                bg_showHide.RunWorkerAsync();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -99,11 +124,32 @@ namespace FileManager
             if (lbxCheckins.Items.Count > 0)
             {
                 lbxCheckins.Items.Clear();
-                IM.Clear();
+                IM.ClearTemp();
                 if (pbFile.Visible) { pbFile.ImageLocation = ""; pbFile.Visible = false; }
                 lbSomeFile.Visible = false;
             }
-            init();
+            
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(IM.rows[0].ToString());
+
+        }
+
+        private void bg_showHide_DoWork(object sender, DoWorkEventArgs e)
+        {
+            System.Threading.Thread.Sleep(800);
+        }
+
+        private void bg_showHide_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            switch (signal)
+            {
+                case SIGNALS.SAVE: lbSaved.Visible = false; break;
+                default: break;
+            }
+            
         }
 
 

@@ -34,7 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.txtKeys = new System.Windows.Forms.TextBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.bg_showHide = new System.ComponentModel.BackgroundWorker();
             this.pbFile = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -47,6 +47,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lbInfo = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.lbSaved = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbFile)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -108,6 +110,11 @@
             this.txtKeys.Size = new System.Drawing.Size(268, 103);
             this.txtKeys.TabIndex = 6;
             // 
+            // bg_showHide
+            // 
+            this.bg_showHide.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bg_showHide_DoWork);
+            this.bg_showHide.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bg_showHide_RunWorkerCompleted);
+            // 
             // pbFile
             // 
             this.pbFile.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -131,6 +138,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lbSaved);
+            this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.btnRemoveAll);
             this.tabPage1.Controls.Add(this.btnRemoveSelected);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -193,7 +202,7 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(454, 376);
+            this.btnOpen.Location = new System.Drawing.Point(293, 427);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(129, 45);
             this.btnOpen.TabIndex = 12;
@@ -203,7 +212,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(323, 376);
+            this.btnSave.Location = new System.Drawing.Point(293, 388);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 33);
             this.btnSave.TabIndex = 11;
@@ -239,6 +248,27 @@
             this.tabPage2.Text = "View";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(675, 400);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 33);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "Show";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // lbSaved
+            // 
+            this.lbSaved.AutoSize = true;
+            this.lbSaved.ForeColor = System.Drawing.Color.Blue;
+            this.lbSaved.Location = new System.Drawing.Point(384, 394);
+            this.lbSaved.Name = "lbSaved";
+            this.lbSaved.Size = new System.Drawing.Size(147, 20);
+            this.lbSaved.TabIndex = 18;
+            this.lbSaved.Text = "Saved successfully!";
+            this.lbSaved.Visible = false;
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -270,7 +300,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox txtKeys;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker bg_showHide;
         private System.Windows.Forms.PictureBox pbFile;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -283,6 +313,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnRemoveAll;
         private System.Windows.Forms.Button btnRemoveSelected;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label lbSaved;
     }
 }
 
