@@ -38,6 +38,8 @@
             this.pbFile = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lbSaved = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.btnRemoveAll = new System.Windows.Forms.Button();
             this.btnRemoveSelected = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -47,12 +49,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lbInfo = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
-            this.lbSaved = new System.Windows.Forms.Label();
+            this.lbSearchResult = new System.Windows.Forms.ListBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.cheWhole = new System.Windows.Forms.CheckBox();
+            this.cheAnd = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbFile)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbxCheckins
@@ -156,8 +163,29 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(994, 679);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Add/Update/Delete";
+            this.tabPage1.Text = "Add";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lbSaved
+            // 
+            this.lbSaved.AutoSize = true;
+            this.lbSaved.ForeColor = System.Drawing.Color.Blue;
+            this.lbSaved.Location = new System.Drawing.Point(384, 394);
+            this.lbSaved.Name = "lbSaved";
+            this.lbSaved.Size = new System.Drawing.Size(147, 20);
+            this.lbSaved.TabIndex = 18;
+            this.lbSaved.Text = "Saved successfully!";
+            this.lbSaved.Visible = false;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(675, 400);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 33);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "Show";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // btnRemoveAll
             // 
@@ -240,34 +268,74 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.cheAnd);
+            this.tabPage2.Controls.Add(this.cheWhole);
+            this.tabPage2.Controls.Add(this.btnSearch);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.txtSearch);
+            this.tabPage2.Controls.Add(this.lbSearchResult);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(994, 679);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "View";
+            this.tabPage2.Text = "View/Update/Delete";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // lbSearchResult
             // 
-            this.button3.Location = new System.Drawing.Point(675, 400);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 33);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Show";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.lbSearchResult.FormattingEnabled = true;
+            this.lbSearchResult.ItemHeight = 20;
+            this.lbSearchResult.Location = new System.Drawing.Point(12, 220);
+            this.lbSearchResult.Name = "lbSearchResult";
+            this.lbSearchResult.Size = new System.Drawing.Size(393, 224);
+            this.lbSearchResult.TabIndex = 0;
             // 
-            // lbSaved
+            // txtSearch
             // 
-            this.lbSaved.AutoSize = true;
-            this.lbSaved.ForeColor = System.Drawing.Color.Blue;
-            this.lbSaved.Location = new System.Drawing.Point(384, 394);
-            this.lbSaved.Name = "lbSaved";
-            this.lbSaved.Size = new System.Drawing.Size(147, 20);
-            this.lbSaved.TabIndex = 18;
-            this.lbSaved.Text = "Saved successfully!";
-            this.lbSaved.Visible = false;
+            this.txtSearch.Location = new System.Drawing.Point(12, 50);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(236, 26);
+            this.txtSearch.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(257, 20);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Search Keywords (seperate by \",\") :";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(156, 109);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(92, 33);
+            this.btnSearch.TabIndex = 5;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // cheExact
+            // 
+            this.cheWhole.AutoSize = true;
+            this.cheWhole.Location = new System.Drawing.Point(335, 50);
+            this.cheWhole.Name = "cheExact";
+            this.cheWhole.Size = new System.Drawing.Size(186, 24);
+            this.cheWhole.TabIndex = 7;
+            this.cheWhole.Text = "Match whole keyword";
+            this.cheWhole.UseVisualStyleBackColor = true;
+            // 
+            // cheAnd
+            // 
+            this.cheAnd.AutoSize = true;
+            this.cheAnd.Location = new System.Drawing.Point(265, 50);
+            this.cheAnd.Name = "cheAnd";
+            this.cheAnd.Size = new System.Drawing.Size(64, 24);
+            this.cheAnd.TabIndex = 8;
+            this.cheAnd.Text = "And";
+            this.cheAnd.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -288,6 +356,8 @@
             this.tabPage1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -315,6 +385,12 @@
         private System.Windows.Forms.Button btnRemoveSelected;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label lbSaved;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.ListBox lbSearchResult;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.CheckBox cheWhole;
+        private System.Windows.Forms.CheckBox cheAnd;
     }
 }
 

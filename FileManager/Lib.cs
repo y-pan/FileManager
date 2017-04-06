@@ -32,5 +32,12 @@ namespace FileManager
             return ext;
 
         }
+
+        public static string trim(string text)
+        {
+            string txt = text.Trim();
+            while (txt.Contains("  ")) { txt.Replace("  ", " "); }
+            return txt;
+        }
     }
 }

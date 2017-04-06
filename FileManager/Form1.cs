@@ -78,8 +78,8 @@ namespace FileManager
 
             try{
                 if (txtKeys.Text.Length <= 0) throw new Exception("Keywords should not be empty");
-                string keywords = txtKeys.Text.Trim();
-                while (keywords.Contains("  ")) { keywords.Replace("  ", " "); }
+                string keywords = Lib.trim(txtKeys.Text);
+                //while (keywords.Contains("  ")) { keywords.Replace("  ", " "); }
                 if (keywords.Length <= 0) throw new Exception("Invalid keywords");
                 IM.Save(keywords);
                 lbxCheckins.Items.Clear();
@@ -133,7 +133,7 @@ namespace FileManager
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(IM.rows[0].ToString());
+            MessageBox.Show(IM.data[0].ToString());
 
         }
 
@@ -151,6 +151,21 @@ namespace FileManager
             }
             
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+            bool isWhole = cheWhole.Checked;
+            bool isOr = !cheAnd.Checked;
+            string keys = Lib.trim(txtSearch.Text);
+            
+            if (keys.Length <= 0) return;
+            IM.Search(keys,isOr,isWhole);
+            MessageBox.Show("find: " + IM.matches.Count);
+            
+
+        }
+
 
 
     }

@@ -12,17 +12,19 @@ namespace FileManager
         public List<Item> tempItems;
         public string folder = "content"; // folder containing all files
         public string dataCsv = "data.csv"; // csv contains: groupId,itemId,name,keyword1,keyword2,...keywordN
-        public List<Row> rows;
+        public List<Record> data;
         public int gidUsed;
+        public List<Record> matches;
         public ItemManager()
         {
             this.tempItems = new List<Item>();
-            this.rows = new List<Row>();
-            
+            this.data = new List<Record>();
+            this.matches = new List<Record>();
+
             if (!Directory.Exists(this.folder)) { Directory.CreateDirectory(this.folder); }
             if (!File.Exists(this.dataCsv)) 
             {
-                File.WriteAllText(this.dataCsv, "gid,iid,name,date,key"); 
+                File.WriteAllText(this.dataCsv, "gid,iid,name,date,key\n"); 
             }
             this.loadData();
         }
@@ -31,8 +33,8 @@ namespace FileManager
             var lines = File.ReadAllLines(this.dataCsv);
             for(int i=1; i<lines.Length; i++)
             {
-                Row r = new Row(lines[i]);
-                this.rows.Add(r);
+                Record r = new Record(lines[i]);
+                this.data.Add(r);
                 if (this.gidUsed < r.gid) this.gidUsed = r.gid;
             }
         }
@@ -63,13 +65,13 @@ namespace FileManager
             for (int i = 0; i < this.tempItems.Count; i++ )
             {
                 File.Copy(this.tempItems[i].fullName, this.folder+"\\"+this.tempItems[i].name, true);
-                Row r = new Row();
+                Record r = new Record();
                 r.gid = id;
                 r.iid = i + 1;
                 r.name = this.tempItems[i].name;
                 r.date = DateTime.Now.ToString("dd/MM/yyyy");
                 r.setKeys(keywords);
-                this.rows.Add(r);
+                this.data.Add(r);
                 File.AppendAllText(this.dataCsv, r.ToString()+"\n");
             }
 
@@ -77,5 +79,15 @@ namespace FileManager
             this.ClearTemp();
         }
 
+        public void Search(string keys, bool isOr, bool isWhole)
+        {
+            string[] keyArray = keys.Split(',');
+            this.matches.Clear();
+            foreach(var d in this.data)
+            {
+                if (d.hasMatch(keyArray, isOr, isWhole)) { this.matches.Add(d); }
+                
+            }
+        }
     }
 }
